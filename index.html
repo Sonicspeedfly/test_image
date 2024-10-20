@@ -1,39 +1,40 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-        }
-        img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Telegram Avatar</title>
+  <style>
+    #avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  </style>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>Фото профиля пользователя</h1>
-    <img id="profile-pic" src="" alt="Фото профиля" />
-    <script>
-        // Получаем информацию о пользователе 
-        const user = Telegram.WebApp.getUser ();
+  <h1>Telegram Avatar</h1>
+  <img id="avatar" src="" alt="Avatar">
+  <script>
+    // Получить ID пользователя Telegram
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
-        // Проверяем, есть ли у пользователя фото
-        if (user.photo_url) {
-            document.getElementById('profile-pic').src = user.photo_url;
-        } else {
-            document.getElementById('profile-pic').alt = "Фото профиля не найдено";
+    // Получить аватарку пользователя по его ID
+    fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getUserProfilePhotos?user_id=${userId}`)
+     .then(response => response.json())
+     .then(data => {
+        if (data.result.photos) {
+          const photoUrl = data.result.photos[0].file_id;
+          fetch(`https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${photoUrl}`)
+           .then(response => response.blob())
+           .then(blob => {
+              const avatarUrl = URL.createObjectURL(blob);
+              document.getElementById('avatar').src = avatarUrl;
+            });
         }
-    </script>
+      })
+     .catch(error => console.error(error));
+  </script>
 </body>
 </html>
