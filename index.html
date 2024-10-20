@@ -11,9 +11,9 @@
   <script>
     // Код, который мы написали выше
     window.addEventListener('load', function () {
-      alert(userData);
       let tg = window.Telegram.WebApp;
       let userData = tg.initDataUnsafe.user;
+      alert(userData);
       let userProfilePicture = userData.photo_url;
       document.getElementById("user-profile-picture").src = userProfilePicture;
     }
