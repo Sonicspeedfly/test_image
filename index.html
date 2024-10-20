@@ -12,14 +12,17 @@
     <img id="avatar" src="" alt="User Avatar">
 
     <script>
-        const {parse} = require('ini-parser');
-        const fs = require('fs');
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'token.txt', true);
 
-        const iniData = fs.readFileSync('example.ini', 'utf-8');
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+          }
+        };
 
-        const parsedIni = parse(iniData);
+        xhr.send();
 
-        console.log(parsedIni);
         const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // заменить на ID пользователя
         const token = '7216426781:AAHvA6r0lKd78F4umwJX22VvECDWeesBnLw'; // заменить на токен вашего бота
 
