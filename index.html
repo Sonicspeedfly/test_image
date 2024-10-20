@@ -12,7 +12,7 @@
     <img id="avatar" src="" alt="User Avatar">
 
     <script>
-        const token = '';
+        var token = '';
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'token.txt', true);
 
@@ -22,7 +22,6 @@
           }
         };
 
-        xhr.send();
         console.log(token);
         const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
@@ -38,6 +37,7 @@
                         document.getElementById('avatar').src = avatarUrl;
                     });
             });
+        xhr.send();
     </script>
 </body>
 </html>
