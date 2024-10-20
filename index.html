@@ -22,6 +22,7 @@
 <body>
     <div id="profile">
         <h1>Фото профиля пользователя</h1>
+        <h2 id="profile-pic-url"></h2>
         <img id="profile-pic" src="" alt="Фото профиля">
     </div>
 
@@ -29,6 +30,7 @@
         // Получаем информацию о пользователе 
         const user = window.Telegram.WebApp.initDataUnsafe.user.photo_url;
         document.getElementById('profile-pic').src = user;
+        document.getElementById('profile-pic') = user;
     </script>
 </body>
 </html>
