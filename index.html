@@ -18,7 +18,7 @@
 
         xhr.onload = function() {
         if (xhr.status === 200) {
-            token = xhr.responseText;
+            token += xhr.responseText;
           }
         };
 
