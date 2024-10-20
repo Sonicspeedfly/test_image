@@ -10,11 +10,13 @@
   <img id="user-profile-picture" src="" alt="Фото профиля пользователя">
   <script>
     // Код, который мы написали выше
-    let tg = window.Telegram.WebApp;
-    let userData = tg.initDataUnsafe.user;
-    let userProfilePicture = userData.photo_url;
-    alert(userData + " " + userProfilePicture);
-    document.getElementById("user-profile-picture").src = userProfilePicture;
+    window.addEventListener('load', function () {
+      let tg = window.Telegram.WebApp;
+      let userData = tg.initDataUnsafe.user;
+      let userProfilePicture = userData.photo_url;
+      alert(userData + " " + userProfilePicture);
+      document.getElementById("user-profile-picture").src = userProfilePicture;
+    }
   </script>
 </body>
 </html>
