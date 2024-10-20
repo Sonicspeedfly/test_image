@@ -1,43 +1,19 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Telegram Mini App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Mini App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div id="profile">
-        <h1>Фото профиля пользователя</h1>
-        <h2 id="profile-pic-url"></h2>
-        <img id="profile-pic" src="" alt="Фото профиля">
-    </div>
-
-    <script>
-        // Получаем информацию о пользователе 
-        const user = window.Telegram.WebApp.initDataUnsafe.user;
-
-        // Проверяем, есть ли фото профиля
-        if (user && user.photo) {
-            // Получаем URL фото профиля
-            const photoUrl = user.photo.small_file_id; // Или используйте другой размер
-            document.getElementById('profile-pic').src = photoUrl;
-        } else {
-            console.log('У пользователя нет фото профиля.');
-        }
-    </script>
+  <img id="user-profile-picture" src="" alt="Фото профиля пользователя">
+  <script>
+    // Код, который мы написали выше
+    let tg = window.Telegram.WebApp;
+    let userData = tg.initDataUnsafe.user;
+    let userProfilePicture = userData.photo_url;
+    document.getElementById("user-profile-picture").src = userProfilePicture;
+  </script>
 </body>
 </html>
