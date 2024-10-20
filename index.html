@@ -12,9 +12,9 @@
     <img id="avatar" src="" alt="User Avatar">
 
     <script>
+        const token = {BOT_API};
+        console.log(token);
         const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        const token = '7216426781:AAHvA6r0lKd78F4umwJX22VvECDWeesBnLw';
-
         fetch(`https://api.telegram.org/bot${token}/getUserProfilePhotos?user_id=${userId}`)
             .then(response => response.json())
             .then(data => {
