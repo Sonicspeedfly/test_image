@@ -12,19 +12,19 @@
     <img id="avatar" src="" alt="User Avatar">
 
     <script>
+        var token = '';
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'token.txt', true);
 
         xhr.onload = function() {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
+            token = xhr.responseText;
           }
         };
 
         xhr.send();
 
-        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // заменить на ID пользователя
-        const token = '7216426781:AAHvA6r0lKd78F4umwJX22VvECDWeesBnLw'; // заменить на токен вашего бота
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
         fetch(`https://api.telegram.org/bot${token}/getUserProfilePhotos?user_id=${userId}`)
             .then(response => response.json())
