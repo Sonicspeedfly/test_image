@@ -21,12 +21,12 @@
     const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
     // Получить аватарку пользователя по его ID
-    fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getUserProfilePhotos?user_id=${userId}`)
+    fetch(`https://api.telegram.org/bot7216426781:AAHvA6r0lKd78F4umwJX22VvECDWeesBnLw/getUserProfilePhotos?user_id=${userId}`)
      .then(response => response.json())
      .then(data => {
         if (data.result.photos) {
           const photoUrl = data.result.photos[0].file_id;
-          fetch(`https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${photoUrl}`)
+          fetch(`https://api.telegram.org/file/bot7216426781:AAHvA6r0lKd78F4umwJX22VvECDWeesBnLw/${photoUrl}`)
            .then(response => response.blob())
            .then(blob => {
               const avatarUrl = URL.createObjectURL(blob);
