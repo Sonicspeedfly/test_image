@@ -13,8 +13,13 @@
     window.addEventListener('load', function () {
       let tg = window.Telegram.WebApp;
       let userData = tg.initDataUnsafe.user;
-      alert(userData);
+      console.log(userData);
+
+      // Получаем фото профиля пользователя
       let userProfilePicture = userData.photo_url;
+
+      // Выводим значение photo_url свойства в консоль
+      console.log(userData.photo_url);
       document.getElementById("user-profile-picture").src = userProfilePicture;
     }
   </script>
