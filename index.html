@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Telegram Web App - Аватарка пользователя</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Telegram Avatar</title>
 </head>
 <body>
+    
+    <img id="avatar" src="" alt="User Avatar">
 
-  <h1>Аватарка пользователя</h1>
+    <script>
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // заменить на ID пользователя
+        const token = '7216426781:AAHvA6r0lKd78F4umwJX22VvECDWeesBnLw'; // заменить на токен вашего бота
 
-  <img id="userAvatar" src="" alt="Аватарка">
-
-  <script>
-    // Подключение к Telegram Web App
-    Telegram.WebApp.ready();
-
-    // Получение данных пользователя
-    Telegram.WebApp.getUser().then(user => {
-      // Получение URL аватарки
-      const avatarUrl = user.photo_url;
-
-      // Установка аватарки в элемент <img>
-      document.getElementById('userAvatar').src = avatarUrl;
-    });
-  </script>
-
+        fetch(`https://api.telegram.org/bot${token}/getUserProfilePhotos?user_id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                const photo = data.result.photos[0][0].file_id;
+                fetch(`https://api.telegram.org/bot${token}/getFile?file_id=${photo}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const file_path = data.result.file_path;
+                        const avatarUrl = `https://api.telegram.org/file/bot${token}/${file_path}`;
+                        document.getElementById('avatar').src = avatarUrl;
+                    });
+            });
+    </script>
 </body>
 </html>
