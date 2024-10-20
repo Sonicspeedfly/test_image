@@ -28,9 +28,13 @@
 
     <script>
         // Получаем информацию о пользователе 
-        const user = window.Telegram.WebApp.initDataUnsafe.user.photo_url;
-        document.getElementById('profile-pic').src = user;
-        document.getElementById('profile-pic-url') = window.Telegram.WebApp.initDataUnsafe.user.first_name + " " + user;
+        window.addEventListener('load', function () {
+          alert("It's loaded!")
+            const user = window.Telegram.WebApp.initDataUnsafe.user.photo_url;
+        
+            document.getElementById('profile-pic').src = user;
+            document.getElementById('profile-pic-url') = window.Telegram.WebApp.initDataUnsafe.user.first_name + " " + user;
+        })
     </script>
 </body>
 </html>
