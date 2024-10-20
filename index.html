@@ -28,12 +28,16 @@
 
     <script>
         // Получаем информацию о пользователе 
-        window.addEventListener('load', function () {
-            const user = window.Telegram.WebApp.initDataUnsafe.user.photo_url;
-        
-            document.getElementById('profile-pic').src = user;
-            document.getElementById('profile-pic-url').innerText = window.Telegram.WebApp.initDataUnsafe.user.first_name + " " + user;
-        })
+        const user = Telegram.WebApp.initDataUnsafe.user;
+
+        // Проверяем, есть ли фото профиля
+        if (user && user.photo) {
+            // Получаем URL фото профиля
+            const photoUrl = user.photo.small_file_id; // Или используйте другой размер
+            document.getElementById('profile-pic').src = photoUrl;
+        } else {
+            console.log('У пользователя нет фото профиля.');
+        }
     </script>
 </body>
 </html>
