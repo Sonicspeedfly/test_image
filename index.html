@@ -14,21 +14,27 @@
         // Получаем доступ к Telegram API
         let tg = window.Telegram.WebApp;
 
-        // Запрашиваем доступ к профилю пользователя
-        tg.initDataUnsafe.user ? loadProfilePicture() : console.error("Не удалось получить данные пользователя");
-
+        // Функция для загрузки фото профиля
         function loadProfilePicture() {
-            // Получаем данные пользователя
-            let userData = tg.initDataUnsafe.user;
+            // Проверяем, доступны ли данные пользователя
+            if (tg.initDataUnsafe.user) {
+                // Получаем данные пользователя
+                let userData = tg.initDataUnsafe.user;
 
-            // Проверяем наличие свойства photo_url
-            if (userData && userData.photo_url) {
-                // Устанавливаем фото профиля пользователя
-                document.getElementById("user-profile-picture").src = userData.photo_url;
+                // Проверяем наличие свойства photo_url
+                if (userData.photo_url) {
+                    // Устанавливаем фото профиля пользователя
+                    document.getElementById("user-profile-picture").src = userData.photo_url;
+                } else {
+                    console.error("Фото профиля недоступно");
+                }
             } else {
-                console.error("Фото профиля недоступно");
+                console.error("Не удалось получить данные пользователя");
             }
         }
+
+        // Вызываем функцию загрузки фото профиля после инициализации
+        tg.ready().then(loadProfilePicture);
     </script>
 </body>
 </html>
