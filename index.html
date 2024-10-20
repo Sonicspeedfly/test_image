@@ -1,54 +1,28 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            border: 2px solid #0078FF;
-        }
-    </style>
+  <title>Telegram Web App - Аватарка пользователя</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>Аватарка пользователя</h1>
-    <img id="profile-pic" src="" alt="Фото профиля" style="display: none;">
-    <p id="no-photo" style="display: none;">У пользователя нет фото профиля.</p>
 
-    <script>
-        // Инициализация Telegram Web App
-        Telegram.WebApp.onEvent('visibilityChanged', function(isVisible) {
-            if (isVisible) {
-                // Получаем информацию о пользователе 
-                const user = Telegram.WebApp.initDataUnsafe.user;
+  <h1>Аватарка пользователя</h1>
 
-                // Проверяем наличие фото профиля
-                if (user && user.photo) {
-                    // Получаем URL фото профиля
-                    const photoUrl = user.photo.small_file_id; // Используйте small_file_id, medium_file_id или big_file_id в зависимости от нужного размера 
-                    document.getElementById('profile-pic').src = photoUrl;
-                    document.getElementById('profile-pic').style.display = 'block';
-                } else {
-                    document.getElementById('no-photo').style.display = 'block';
-                }
-            }
-        });
+  <img id="userAvatar" src="" alt="Аватарка">
 
-        // Инициализация Web App
-        Telegram.WebApp.init();
-    </script>
+  <script>
+    // Подключение к Telegram Web App
+    Telegram.WebApp.ready();
+
+    // Получение данных пользователя
+    Telegram.WebApp.getUser().then(user => {
+      // Получение URL аватарки
+      const avatarUrl = user.photo_url;
+
+      // Установка аватарки в элемент <img>
+      document.getElementById('userAvatar').src = avatarUrl;
+    });
+  </script>
+
 </body>
 </html>
