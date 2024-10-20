@@ -26,8 +26,8 @@
     </div>
 
     <script>
-        // Получаем информацию о пользователе const 
-        user = Telegram.WebApp.initDataUnsafe.user;
+        // Получаем информацию о пользователе 
+        const user = Telegram.WebApp.initDataUnsafe.user;
 
         // Проверяем, есть ли фото профиля
         if (user && user.photo) {
