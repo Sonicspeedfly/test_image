@@ -3,38 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App Profile Picture</title>
+    <title>Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/wishyoudie/mini-apps-profile-pics/dist/index.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
     <h1>Фото профиля пользователя</h1>
-    <img id="user-profile-picture" src="" alt="Фото профиля пользователя" style="width: 100px; height: 100px;">
+    <img id="profile-pic" src="" alt="Фото профиля" />
     <script>
-        // Получаем доступ к Telegram API
-        let tg = window.Telegram.WebApp;
+        // Получаем информацию о пользователе 
+        const user = Telegram.WebApp.getUser ();
 
-        // Функция для загрузки фото профиля
-        function loadProfilePicture() {
-            // Проверяем, доступны ли данные пользователя
-            if (tg.initDataUnsafe.user) {
-                // Получаем данные пользователя
-                let userData = tg.initDataUnsafe.user;
-
-                // Проверяем наличие свойства photo_url
-                if (userData.photo_url) {
-                    // Устанавливаем фото профиля пользователя
-                    document.getElementById("user-profile-picture").src = userData.photo_url;
-                } else {
-                    console.error("Фото профиля недоступно");
-                }
-            } else {
-                console.error("Не удалось получить данные пользователя");
-            }
+        // Проверяем, есть ли у пользователя фото
+        if (user.photo_url) {
+            document.getElementById('profile-pic').src = user.photo_url;
+        } else {
+            document.getElementById('profile-pic').alt = "Фото профиля не найдено";
         }
-
-        // Вызываем функцию загрузки фото профиля после инициализации
-        tg.ready().then(loadProfilePicture);
     </script>
 </body>
 </html>
