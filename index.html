@@ -13,6 +13,7 @@
     let tg = window.Telegram.WebApp;
     let userData = tg.initDataUnsafe.user;
     let userProfilePicture = userData.photo_url;
+    alert(userData + " " + userProfilePicture);
     document.getElementById("user-profile-picture").src = userProfilePicture;
   </script>
 </body>
